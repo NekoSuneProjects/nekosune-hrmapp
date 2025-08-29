@@ -43,15 +43,11 @@ jobs:
 
       # Build Raspberry Pi targets using electron-builder
       # Adjust targets as needed (deb, AppImage). This cross-build runs on x64 Linux.
-      - name: Build Electron App (ARMv7 + ARM64)
+      - name: Build Electron App
+        run: |
+          npm run build:pi
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          # Build ARMv7 (32-bit Raspberry Pi OS)
-          npx electron-builder --linux deb,AppImage --armv7l
-
-          # Build ARM64 (64-bit Raspberry Pi OS)
-          npx electron-builder --linux deb,AppImage --arm64
 
       - name: List dist folder
         run: ls -R dist

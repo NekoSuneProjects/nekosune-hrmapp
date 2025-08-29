@@ -1,67 +1,72 @@
 {
-    "name": "pulsoid-electron",
-    "version": "1.0.0",
-    "author": "NekoSuneVR",
-    "license": "MIT",
-    "description": "PulsoidApp is Program use Pulsoid With Discord RPC and Dashboard on App with Overlay can use on OBS",
-    "main": "main.js",
-    "scripts": {
-        "start": "electron .",
-        "build": "electron-builder",
-        "build:win": "electron-builder --win",
-        "test": "echo \"Error: no test specified\" && exit 1"
+  "name": "pulsoid-electron",
+  "version": "1.0.0",
+  "author": "NekoSuneVR",
+  "license": "MIT",
+  "description": "PulsoidApp is Program use Pulsoid With Discord RPC and Dashboard on App with Overlay can use on OBS",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "build:pi": "electron-builder --linux deb,AppImage --armv7l --arm64",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "build": {
+    "appId": "com.nekosunevr.pulsoidapp",
+    "productName": "PulsoidApp",
+    "copyright": "Copyright © 2024-2025 NekoSuneVR",
+
+    "directories": {
+      "output": "dist",
+      "buildResources": "assets"
     },
-    "build": {
-        "copyright": "Copyright © 2024-2025 NekoSuneVR",
-        "appId": "com.nekosunevr.pulsoidapp",
-        "productName": "PulsoidApp",
-        "appx": {
-            "backgroundColor": "#ffffff",
-            "displayName": "PulsoidApp",
-            "publisher": "CN=NekoSuneVR",
-            "publisherDisplayName": "NekoSuneVR",
-            "identityName": "com.nekosunevr.pulsoidapp"
+
+    "files": [
+      "**/*",
+      "!node_modules/.cache"
+    ],
+
+    "asar": true,
+
+    "linux": {
+      "category": "Utility",
+      "maintainer": "NekoSuneVR",
+      "artifactName": "${productName}-${version}-${arch}.${ext}",
+      "icon": "assets/icon.png",
+      "target": [
+        {
+          "target": "deb",
+          "arch": ["armv7l", "arm64"]
         },
-        "directories": {
-            "output": "dist",
-            "buildResources": "assets"
-        },
-        "files": [
-            "**/*",
-            "!node_modules/.cache"
-        ],
-        "win": {
-            "artifactName": "${productName}-Setup-${version}.${ext}",
-            "target": [
-                "nsis",
-                "msi"
-            ],
-            "icon": "assets/icon.ico",
-            "files": [
-                "main.js",
-                "preload.js",
-                "LICENSE",
-                "README.md",
-                "CHANGELOG.md",
-                "assets/**/*",
-                "src/**/*",
-                "package.json",
-                "node_modules/**/*"
-            ]
-        },
-        "nsis": {
-            "allowToChangeInstallationDirectory": true,
-            "license": "LICENSE",
-            "oneClick": false
+        {
+          "target": "AppImage",
+          "arch": ["armv7l", "arm64"]
         }
+      ],
+      "synopsis": "Pulsoid with Discord RPC and overlay dashboard",
+      "description": "PulsoidApp brings Pulsoid with Discord Rich Presence and an in-app dashboard with an OBS-friendly overlay."
     },
-    "dependencies": {
-        "discord-rpc": "^4.0.1",
-        "electron-store": "^7.0.3",
-        "ws": "^8.18.0"
-    },
-    "devDependencies": {
-        "electron": "^30.0.0",
-        "electron-builder": "^25.1.8"
+
+    "deb": {
+      "priority": "optional",
+      "depends": [
+        "libgtk-3-0",
+        "libnss3",
+        "libxss1",
+        "libasound2",
+        "libatk-bridge2.0-0",
+        "libdrm2",
+        "libgbm1"
+      ]
     }
+  },
+  "dependencies": {
+    "discord-rpc": "^4.0.1",
+    "electron-store": "^7.0.3",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "electron": "^30.0.0",
+    "electron-builder": "^25.1.8"
+  }
 }
