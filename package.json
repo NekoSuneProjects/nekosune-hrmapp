@@ -8,7 +8,7 @@
   "scripts": {
     "start": "electron .",
     "build": "electron-builder",
-    "build:pi": "electron-builder --linux deb,AppImage --armv7l --arm64",
+    "build:pi": "electron-builder --linux --armv7l --arm64",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "build": {
