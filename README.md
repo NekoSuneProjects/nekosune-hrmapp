@@ -1,4 +1,4 @@
-# Pulsoid Discord RPC + OBS Overlay (Electron)
+# HRMApp - Pulsoid Discord RPC + OBS Overlay (Electron)
 
 ### 1) Install
 ```bash
