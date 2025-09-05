@@ -8,7 +8,7 @@ permissions:
 on:
   push:
     branches:
-      - main
+      - bakupdata
 
 env:
   # Change these if your bucket/path changes
@@ -50,10 +50,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           version: ${{ env.VERSION }}
-          name: "PulsoidApp ${{ env.VERSION }}"
+          name: "HRMApp ${{ env.VERSION }}"
           tag: ${{ env.VERSION }}
           prerelease: true
-          header: "## Release Notes for PulsoidApp ${{ env.VERSION }}"
+          header: "## Release Notes for HRMApp ${{ env.VERSION }}"
 
       - name: Save release notes to file
         run: |
@@ -112,18 +112,18 @@ jobs:
         shell: powershell
         run: |
           $targetPath = "${{ env.MINIO_BUCKET_PATH }}/${{ env.VERSION }}${{ env.BUILD_TAG }}/"
-          if (Test-Path "dist/PulsoidApp-Setup-${{ env.VERSION }}.msi") { .\mc.exe cp "dist/PulsoidApp-Setup-${{ env.VERSION }}.msi" "$targetPath" }
-          if (Test-Path "dist/PulsoidApp-Setup-${{ env.VERSION }}.exe") { .\mc.exe cp "dist/PulsoidApp-Setup-${{ env.VERSION }}.exe" "$targetPath" }
+          if (Test-Path "dist/HRMApp-Setup-${{ env.VERSION }}.msi") { .\mc.exe cp "dist/HRMApp-Setup-${{ env.VERSION }}.msi" "$targetPath" }
+          if (Test-Path "dist/HRMApp-Setup-${{ env.VERSION }}.exe") { .\mc.exe cp "dist/HRMApp-Setup-${{ env.VERSION }}.exe" "$targetPath" }
 
       - name: Make Windows Download Links
         id: links
         shell: pwsh
         run: |
           $base = "${{ env.PUBLIC_BASE_URL }}/${{ env.VERSION }}${{ env.BUILD_TAG }}"
-          $msi = Test-Path "dist/PulsoidApp-Setup-${{ env.VERSION }}.msi"
-          $exe = Test-Path "dist/PulsoidApp-Setup-${{ env.VERSION }}.exe"
-          if ($msi) { "WIN_MSI_URL=$base/PulsoidApp-Setup-${{ env.VERSION }}.msi" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8 }
-          if ($exe) { "WIN_EXE_URL=$base/PulsoidApp-Setup-${{ env.VERSION }}.exe" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8 }
+          $msi = Test-Path "dist/HRMApp-Setup-${{ env.VERSION }}.msi"
+          $exe = Test-Path "dist/HRMApp-Setup-${{ env.VERSION }}.exe"
+          if ($msi) { "WIN_MSI_URL=$base/HRMApp-Setup-${{ env.VERSION }}.msi" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8 }
+          if ($exe) { "WIN_EXE_URL=$base/HRMApp-Setup-${{ env.VERSION }}.exe" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8 }
 
   linux-x64:
     name: Build & Upload — Linux (x64)
@@ -405,17 +405,17 @@ jobs:
       VERSION: ${{ needs.prepare.outputs.version }}
       BUILD_TAG: ${{ needs.prepare.outputs.build_tag }}
       # Windows
-      WIN_EXE_URL: https://uploadminioger1.nekosunevr.co.uk/nekosunetools/pulsoidapp/release/${{ needs.prepare.outputs.version }}${{ needs.prepare.outputs.build_tag }}/PulsoidApp-Setup-${{ needs.prepare.outputs.version }}.exe
-      WIN_MSI_URL: https://uploadminioger1.nekosunevr.co.uk/nekosunetools/pulsoidapp/release/${{ needs.prepare.outputs.version }}${{ needs.prepare.outputs.build_tag }}/PulsoidApp-Setup-${{ needs.prepare.outputs.version }}.msi
+      WIN_EXE_URL: https://uploadminioger1.nekosunevr.co.uk/nekosunetools/pulsoidapp/release/${{ needs.prepare.outputs.version }}${{ needs.prepare.outputs.build_tag }}/HRMApp-Setup-${{ needs.prepare.outputs.version }}.exe
+      WIN_MSI_URL: https://uploadminioger1.nekosunevr.co.uk/nekosunetools/pulsoidapp/release/${{ needs.prepare.outputs.version }}${{ needs.prepare.outputs.build_tag }}/HRMApp-Setup-${{ needs.prepare.outputs.version }}.msi
       # Linux x64  ⬅️ use linux-x64 (not build-linux)
-      LINUX_APPIMAGE_URL: https://uploadminioger1.nekosunevr.co.uk/nekosunetools/pulsoidapp/release/${{ needs.prepare.outputs.version }}${{ needs.prepare.outputs.build_tag }}/PulsoidApp-Setup-${{ needs.prepare.outputs.version }}-x86_64.AppImage
-      LINUX_DEB_URL: https://uploadminioger1.nekosunevr.co.uk/nekosunetools/pulsoidapp/release/${{ needs.prepare.outputs.version }}${{ needs.prepare.outputs.build_tag }}/PulsoidApp-Setup-${{ needs.prepare.outputs.version }}-amd64.deb
+      LINUX_APPIMAGE_URL: https://uploadminioger1.nekosunevr.co.uk/nekosunetools/pulsoidapp/release/${{ needs.prepare.outputs.version }}${{ needs.prepare.outputs.build_tag }}/HRMApp-Setup-${{ needs.prepare.outputs.version }}-x86_64.AppImage
+      LINUX_DEB_URL: https://uploadminioger1.nekosunevr.co.uk/nekosunetools/pulsoidapp/release/${{ needs.prepare.outputs.version }}${{ needs.prepare.outputs.build_tag }}/HRMApp-Setup-${{ needs.prepare.outputs.version }}-amd64.deb
       # Raspberry Pi ⬅️ use raspi-* job IDs
-      ARM7_APPIMG_URL: https://uploadminioger1.nekosunevr.co.uk/nekosunetools/pulsoidapp/release/${{ needs.prepare.outputs.version }}${{ needs.prepare.outputs.build_tag }}/PulsoidApp-Setup-${{ needs.prepare.outputs.version }}-armv7l.AppImage
-      ARM64_APPIMG_URL: https://uploadminioger1.nekosunevr.co.uk/nekosunetools/pulsoidapp/release/${{ needs.prepare.outputs.version }}${{ needs.prepare.outputs.build_tag }}/PulsoidApp-Setup-${{ needs.prepare.outputs.version }}-arm64.AppImage
+      ARM7_APPIMG_URL: https://uploadminioger1.nekosunevr.co.uk/nekosunetools/pulsoidapp/release/${{ needs.prepare.outputs.version }}${{ needs.prepare.outputs.build_tag }}/HRMApp-Setup-${{ needs.prepare.outputs.version }}-armv7l.AppImage
+      ARM64_APPIMG_URL: https://uploadminioger1.nekosunevr.co.uk/nekosunetools/pulsoidapp/release/${{ needs.prepare.outputs.version }}${{ needs.prepare.outputs.build_tag }}/HRMApp-Setup-${{ needs.prepare.outputs.version }}-arm64.AppImage
       # macOS
-      MAC_DMG_URL: https://uploadminioger1.nekosunevr.co.uk/nekosunetools/pulsoidapp/release/${{ needs.prepare.outputs.version }}${{ needs.prepare.outputs.build_tag }}/PulsoidApp-Setup-${{ needs.prepare.outputs.version }}.dmg
-      MAC_ZIP_URL: https://uploadminioger1.nekosunevr.co.uk/nekosunetools/pulsoidapp/release/${{ needs.prepare.outputs.version }}${{ needs.prepare.outputs.build_tag }}/PulsoidApp-Setup-${{ needs.prepare.outputs.version }}.zip
+      MAC_DMG_URL: https://uploadminioger1.nekosunevr.co.uk/nekosunetools/pulsoidapp/release/${{ needs.prepare.outputs.version }}${{ needs.prepare.outputs.build_tag }}/HRMApp-Setup-${{ needs.prepare.outputs.version }}.dmg
+      MAC_ZIP_URL: https://uploadminioger1.nekosunevr.co.uk/nekosunetools/pulsoidapp/release/${{ needs.prepare.outputs.version }}${{ needs.prepare.outputs.build_tag }}/HRMApp-Setup-${{ needs.prepare.outputs.version }}.zip
     steps:
       - name: Download release notes artifact
         uses: actions/download-artifact@v4
@@ -491,7 +491,7 @@ jobs:
             ] | join("\n"));
 
           {
-            username: "Pulsoid APP Bot",
+            username: "HRMApp Bot",
             avatar_url: "https://cdn.discordapp.com/icons/1310653602951594024/cb8a2781368442a92b33dd2cb93b3afd.webp?size=512",
             content: $content,
             allowed_mentions: { parse: ["roles"] },
