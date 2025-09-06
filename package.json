@@ -63,6 +63,7 @@
         "dmg",
         "zip"
       ],
+      "sign": false,
       "category": "public.app-category.healthcare-fitness",
       "icon": "assets/icon.icns",
       "files": [
