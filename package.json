@@ -153,7 +153,7 @@
   "dependencies": {
     "bindings": "^1.5.0",
     "discord-rpc": "^4.0.1",
-    "electron-store": "^7.0.3",
+    "electron-store": "^11.0.2",
     "ws": "^8.18.0"
   },
   "devDependencies": {
