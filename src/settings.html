@@ -22,6 +22,9 @@
             <input id="token" type="password" placeholder="pulsoid_xxx"
                 style="width:100%;padding:10px;border-radius:10px;border:1px solid #2d3036;background:#0f1115;color:white;" />
             <p class="muted">Stored locally using electron-store. Keep this secret.</p>
+            <div class="row" style="gap:8px; margin-top:8px;">
+                <button class="btn" id="btn-oauth" type="button">Get token via OAuth</button>
+            </div>
         </div>
 
         <div class="grid">
@@ -80,7 +83,7 @@
 
         btnOauth.onclick = async () => {
             const t = await window.api.acquirePulsoidToken({
-                clientId: '4463b85f-79cd-445f-abee-70a0887f0a85',
+                clientId: '99eb74f6-d3b0-4109-ba37-36adbe1ee360',
                 scope: 'data:heart_rate:read'
             });
             if (t && t.access_token) {

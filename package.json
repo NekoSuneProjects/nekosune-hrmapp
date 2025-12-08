@@ -63,7 +63,7 @@
       ]
     },
     "mac": {
-      "artifactName": "${productName}-Setup-${version}.${ext}",
+      "artifactName": "${productName}-Setup-${version}-${arch}.${ext}",
       "target": [
         "dmg",
         "zip"

@@ -38,7 +38,7 @@ function acquirePulsoidTokenImplicit({ clientId, scope = 'data:heart_rate:read' 
 
 function acquirePulsoidTokenWebPage({ clientId, scope = 'data:heart_rate:read' }) {
   const state = crypto.randomUUID();
-  const url = `https://pulsoid.net/oauth2/authorize?response_type=token&client_id=${encodeURIComponent(clientId)}&redirect_uri=${encodeURIComponent('http://localhost')}&scope=${encodeURIComponent(scope)}&state=${encodeURIComponent(state)}&response_mode=web_page`;
+  const url = `https://pulsoid.net/oauth2/authorize?response_type=token&client_id=${encodeURIComponent(clientId)}&redirect_uri=&scope=${encodeURIComponent(scope)}&state=${encodeURIComponent(state)}&response_mode=web_page`;
   shell.openExternal(url);
   return { copied: true };
 }
@@ -239,10 +239,6 @@ app.on('window-all-closed', () => { if (process.platform !== 'darwin') app.quit(
 app.on('before-quit', () => { pulsoid.stop(); teardownDiscordRpc(); });
 
 ipcMain.handle('pulsoid:oauth', async (_e, { clientId, scope }) => {
-  try {
-    const token = await acquirePulsoidTokenImplicit({ clientId, scope });
-    if (token?.access_token) return token;
-  } catch {}
   return acquirePulsoidTokenWebPage({ clientId, scope });
 });
 

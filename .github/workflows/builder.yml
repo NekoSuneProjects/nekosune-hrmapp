@@ -266,7 +266,8 @@ jobs:
       - name: Build Electron App (Unsigned macOS)
         run: |
           echo "Building unsigned macOS artifacts…"
-          npm run build:mac
+          npm run build:mac -- --x64
+          npm run build:mac -- --arm64
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CSC_IDENTITY_AUTO_DISCOVERY: false
@@ -337,7 +338,7 @@ jobs:
             local var="$1" pattern="$2"
             local file
             file=$(find artifacts -type f -name "$pattern" | head -n1 || true)
-            if [ -n "$file" ]; then
+            if [ -n "$file" ] && [ -z "${!var:-}" ]; then
               echo "$var=$BASE/$(basename "$file")" >> "$GITHUB_ENV"
             fi
           }
@@ -351,8 +352,11 @@ jobs:
           set_link ARMHF_DEB_URL "*_armhf.deb"
           set_link ARM64_APPIMG_URL "*arm64*.AppImage"
           set_link ARM64_DEB_URL "*arm64*.deb"
-          set_link MAC_DMG_URL "*.dmg"
-          set_link MAC_ZIP_URL "*.zip"
+          # Prefer x64 DMG/ZIP (Intel), then fall back to arm64
+          set_link MAC_DMG_URL "*-x64.dmg"
+          set_link MAC_DMG_URL "*-arm64.dmg"
+          set_link MAC_ZIP_URL "*-x64.zip"
+          set_link MAC_ZIP_URL "*-arm64.zip"
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
@@ -407,8 +411,8 @@ jobs:
               ($ARM7_DEB_URL | select(. != "") | "• [Raspberry Pi ARMv7 .deb](" + . + ")"),
               ($ARM64_APPIMG_URL | select(. != "") | "• [Raspberry Pi ARM64 AppImage](" + . + ")"),
               ($ARM64_DEB_URL | select(. != "") | "• [Raspberry Pi ARM64 .deb](" + . + ")"),
-              ($MAC_DMG_URL | select(. != "") | "• [macOS DMG](" + . + ")"),
-              ($MAC_ZIP_URL | select(. != "") | "• [macOS ZIP](" + . + ")")
+              ($MAC_DMG_URL | select(. != "") | "• [macOS DMG (Intel preferred)](" + . + ")"),
+              ($MAC_ZIP_URL | select(. != "") | "• [macOS ZIP (Intel preferred)](" + . + ")")
             ] | map(select(. != null)) | join("\n"));
 
           {
