@@ -307,7 +307,7 @@ jobs:
       - name: Download release notes artifact
         uses: actions/download-artifact@v4
         with:
-          name: release_notes${{ needs.prepare.outputs.build_tag }}
+          name: release_notes-v${{ github.run_number }}
           path: .
 
       - name: Show release notes
@@ -316,40 +316,13 @@ jobs:
           cat release_notes.txt || true
           echo "-------------------------"
 
-      - name: Download Windows artifacts
+      - name: Download build artifacts (all platforms)
         uses: actions/download-artifact@v4
-        continue-on-error: true
+        if: always()
         with:
-          name: windows-dist
-          path: artifacts/windows
-
-      - name: Download Linux x64 artifacts
-        uses: actions/download-artifact@v4
-        continue-on-error: true
-        with:
-          name: linux-x64-dist
-          path: artifacts/linux-x64
-
-      - name: Download Raspberry Pi armv7 artifacts
-        uses: actions/download-artifact@v4
-        continue-on-error: true
-        with:
-          name: raspi-armv7l-dist
-          path: artifacts/raspi-armv7l
-
-      - name: Download Raspberry Pi arm64 artifacts
-        uses: actions/download-artifact@v4
-        continue-on-error: true
-        with:
-          name: raspi-arm64-dist
-          path: artifacts/raspi-arm64
-
-      - name: Download macOS artifacts
-        uses: actions/download-artifact@v4
-        continue-on-error: true
-        with:
-          name: macos-dist
-          path: artifacts/macos
+          pattern: "*dist*"
+          path: artifacts
+          merge-multiple: true
 
       - name: Compute download links
         shell: bash
@@ -388,11 +361,7 @@ jobs:
           draft: false
           prerelease: false
           files: |
-            artifacts/windows/*
-            artifacts/linux-x64/*
-            artifacts/raspi-armv7l/*
-            artifacts/raspi-arm64/*
-            artifacts/macos/*
+            artifacts/**
           fail_on_unmatched_files: false
 
       - name: Send Release Info to Discord
