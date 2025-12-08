@@ -104,8 +104,8 @@ jobs:
         with:
           name: windows-dist
           path: |
-            dist/*.msi
-            dist/*.exe
+            dist/**/*.msi
+            dist/**/*.exe
           if-no-files-found: ignore
           retention-days: 7
 
@@ -147,8 +147,8 @@ jobs:
         with:
           name: linux-x64-dist
           path: |
-            dist/*x86_64*.AppImage
-            dist/*amd64*.deb
+            dist/**/*x86_64*.AppImage
+            dist/**/*amd64*.deb
           if-no-files-found: ignore
           retention-days: 7
 
@@ -189,9 +189,9 @@ jobs:
         with:
           name: raspi-armv7l-dist
           path: |
-            dist/*armv7l*.AppImage
-            dist/*armv7l*.deb
-            dist/*_armhf.deb
+            dist/**/*armv7l*.AppImage
+            dist/**/*armv7l*.deb
+            dist/**/*_armhf.deb
           if-no-files-found: ignore
           retention-days: 7
 
@@ -227,8 +227,8 @@ jobs:
         with:
           name: raspi-arm64-dist
           path: |
-            dist/*arm64*.AppImage
-            dist/*arm64*.deb
+            dist/**/*arm64*.AppImage
+            dist/**/*arm64*.deb
           if-no-files-found: ignore
           retention-days: 7
           
@@ -283,8 +283,8 @@ jobs:
         with:
           name: macos-dist-unsigned
           path: |
-            dist/*.dmg
-            dist/*.zip
+            dist/**/*.dmg
+            dist/**/*.zip
           if-no-files-found: ignore
           retention-days: 7
 
