@@ -106,6 +106,8 @@ jobs:
           path: |
             dist/**/*.msi
             dist/**/*.exe
+            !dist/**/HRMApp.exe
+            !dist/**/elevate.exe
           if-no-files-found: ignore
           retention-days: 7
 
