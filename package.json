@@ -68,6 +68,8 @@
         "dmg",
         "zip"
       ],
+      "identity": null,
+      "hardenedRuntime": false,
       "category": "public.app-category.healthcare-fitness",
       "icon": "assets/icon.icns",
       "files": [
