@@ -318,30 +318,35 @@ jobs:
 
       - name: Download Windows artifacts
         uses: actions/download-artifact@v4
+        continue-on-error: true
         with:
           name: windows-dist
           path: artifacts/windows
 
       - name: Download Linux x64 artifacts
         uses: actions/download-artifact@v4
+        continue-on-error: true
         with:
           name: linux-x64-dist
           path: artifacts/linux-x64
 
       - name: Download Raspberry Pi armv7 artifacts
         uses: actions/download-artifact@v4
+        continue-on-error: true
         with:
           name: raspi-armv7l-dist
           path: artifacts/raspi-armv7l
 
       - name: Download Raspberry Pi arm64 artifacts
         uses: actions/download-artifact@v4
+        continue-on-error: true
         with:
           name: raspi-arm64-dist
           path: artifacts/raspi-arm64
 
       - name: Download macOS artifacts
         uses: actions/download-artifact@v4
+        continue-on-error: true
         with:
           name: macos-dist
           path: artifacts/macos
@@ -350,6 +355,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          mkdir -p artifacts
           BASE="https://github.com/${{ github.repository }}/releases/download/${{ env.RELEASE_TAG }}"
 
           set_link() {
