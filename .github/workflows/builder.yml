@@ -354,9 +354,9 @@ jobs:
           set_link ARM64_DEB_URL "*arm64*.deb"
           # Prefer x64 DMG/ZIP (Intel), then fall back to arm64
           set_link MAC_DMG_URL "*-x64.dmg"
-          set_link MAC_DMG_URL "*-arm64.dmg"
+          set_link ARM64_MAC_DMG_URL "*-arm64.dmg"
           set_link MAC_ZIP_URL "*-x64.zip"
-          set_link MAC_ZIP_URL "*-arm64.zip"
+          set_link ARM64_MAC_ZIP_URL "*-arm64.zip"
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
@@ -393,6 +393,8 @@ jobs:
             --arg ARM64_DEB_URL "${ARM64_DEB_URL:-}" \
             --arg MAC_DMG_URL "${MAC_DMG_URL:-}" \
             --arg MAC_ZIP_URL "${MAC_ZIP_URL:-}" \
+            --arg ARM64_MAC_DMG_URL "${ARM64_MAC_DMG_URL:-}" \
+            --arg ARM64_MAC_ZIP_URL "${ARM64_MAC_ZIP_URL:-}" \
             --argjson color 65280 \
             --arg footer "Released by GitHub Actions" \
             --arg timestamp "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
@@ -411,8 +413,10 @@ jobs:
               ($ARM7_DEB_URL | select(. != "") | "• [Raspberry Pi ARMv7 .deb](" + . + ")"),
               ($ARM64_APPIMG_URL | select(. != "") | "• [Raspberry Pi ARM64 AppImage](" + . + ")"),
               ($ARM64_DEB_URL | select(. != "") | "• [Raspberry Pi ARM64 .deb](" + . + ")"),
-              ($MAC_DMG_URL | select(. != "") | "• [macOS DMG (Intel preferred)](" + . + ")"),
-              ($MAC_ZIP_URL | select(. != "") | "• [macOS ZIP (Intel preferred)](" + . + ")")
+              ($MAC_DMG_URL | select(. != "") | "• [macOS DMG (Intel)](" + . + ")"),
+              ($MAC_ZIP_URL | select(. != "") | "• [macOS ZIP (Intel)](" + . + ")"),
+              ($ARM64_MAC_DMG_URL | select(. != "") | "• [macOS DMG (Apple Silicon)](" + . + ")"),
+              ($ARM64_MAC_ZIP_URL | select(. != "") | "• [macOS ZIP (Apple Silicon)](" + . + ")")
             ] | map(select(. != null)) | join("\n"));
 
           {
