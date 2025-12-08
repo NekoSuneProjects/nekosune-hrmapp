@@ -1,5 +1,32 @@
 # HRMAPP Pulsoid Discord RPC + OBS Overlay (Electron)
 
+## 🚀 Good News — macOS Build Working Again!
+
+A fresh macOS build is now available and fully working!
+
+⚠️ **Important:** The app is currently **unsigned** because Apple requires a **$99/year Developer ID** to notarize and sign apps.  
+Because of this, macOS may show:
+
+> **"Apple cannot verify that this app is free of malware."**
+
+This is expected for unsigned Electron apps.
+
+### ✔️ How to Open the App Anyway  
+If macOS blocks the app, follow this simple guide:  
+📺 **Video tutorial:** https://www.youtube.com/watch?v=biIvAM94b98  
+
+Or follow these steps manually:
+
+1. Try to open the `.app` normally — macOS will block it.
+2. Open **System Settings → Privacy & Security**
+3. Scroll down until you see **“App was blocked from opening”**
+4. Click **Allow Anyway**
+5. Launch the app again → click **Open**
+
+After this, it will run normally every time.
+
+---
+
 ### 1) Install
 ```bash
 npm install
