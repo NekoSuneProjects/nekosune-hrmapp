@@ -18,11 +18,11 @@ If macOS blocks the app, you can still run it safely.
 
 Or follow these steps manually:
 
-1. Try to open the `.app` â€” macOS will block it.
-2. Open **System Settings â†’ Privacy & Security**
-3. Scroll until you see **â€œApp was blocked from openingâ€**
+1. Try to open the `.app` macOS will block it.
+2. Open **System Settings > Privacy & Security**
+3. Scroll until you see **App was blocked from opening**
 4. Click **Allow Anyway**
-5. Re-open the app â†’ click **Open**
+5. Re-open the app click **Open**
 
 After this, the app will launch normally every time.
 
@@ -52,7 +52,7 @@ Open **Settings** inside the app:
 ## OBS Overlay Setup
 
 - Click **Open OBS Overlay** inside the app  
-- In OBS â†’ **Sources** â†’ **+** â†’ **Window Capture**
+- In OBS **Sources** **+** **Window Capture**
 - Select the window titled **Overlay**
 - Enable **Allow Transparency** (if supported)
 - Make sure the overlay window is visible on the same desktop
