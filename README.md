@@ -1,6 +1,6 @@
 # HRMAPP Pulsoid Discord RPC + OBS Overlay (Electron)
 
-## Good News â€” macOS Build Working Again!
+## Good News macOS Build Working Again!
 
 A fresh macOS build is now available and fully working!
 
